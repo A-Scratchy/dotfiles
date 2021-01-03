@@ -26,6 +26,7 @@ Plug 'OrangeT/vim-csharp'
 Plug 'shime/vim-livedown'
 Plug 'airblade/vim-gitgutter'
 Plug 'wikitopian/hardmode'
+Plug 'qpkorr/vim-bufkill'
 
 call plug#end()
 " ===========================================================
@@ -76,44 +77,76 @@ let mapleader=" "
 " exit insert mode with jk or kj
 inoremap jk <Esc>
 inoremap kj <Esc>
-" TAB in general mode will move to text buffer
-nnoremap <TAB> :bnext<CR>
-" SHIFT-TAB will go back
-nnoremap <S-TAB> :bprevious<CR>
 " Better window navigation
-nnoremap <C-Left> <C-w>h
-nnoremap <C-Up> <C-w>k
-nnoremap <C-Down> <C-w>j
-nnoremap <C-Right> <C-w>l
-noremap <F4> :NERDTreeToggle<CR>
-noremap <leader>h :noh<CR>
-" serach in directory using FZF
-noremap <C-p> :GFiles<CR>
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wl <C-w>l
+nnoremap  <leader>ww <C-w>w
+nnoremap  <leader>nt :NERDTreeToggle<CR>
+nnoremap  <leader>wb :vertical resize +10<CR>
+nnoremap  <leader>ws :vertical resize -10<CR>
 " move lines up and down like in vs code
 noremap <S-Up> ddkP
 noremap <S-Down> ddp
-noremap <C-h> :History<CR>
-" easy save and quit
-noremap <C-s> :w<CR>
-noremap <C-q> :q<CR>
-" window resizing
-noremap <S-Right> :vertical resize +10<CR>
-noremap <S-Left> :vertical resize -10<CR>
-noremap <leader>g :botright vertical Gstatus<CR>
-noremap <leader>r :register<CR>
-noremap oo o<Esc>
-noremap OO O<Esc>
-noremap <leader>ww :w<CR>
-noremap <leader>qq :q<CR>
+" working with files
+nnoremap <leader>fw :w<CR>
+nnoremap <leader>fq :q<CR>
+nnoremap <leader>fwq :wq<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fh :History<CR>
+nnoremap <leader>fg :GFiles<CR>
+" useful stuff
+nnoremap <leader>h :noh<CR>
+nnoremap <leader>g :Gstatus<CR>
+nnoremap <leader>r :register<CR>
+nnoremap oo o<Esc>
+nnoremap OO O<Esc>
+" working with buffers
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>bl :Buffers<CR> 
+nnoremap <leader>bu :BUN<CR>
+nnoremap <leader>bd :BD<CR>
 
 "=============================================================
 "=========================AIRLINE==============================
 " enable tabline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_inactive_collapse=1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#unicode#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_inactive_alt_sep=1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#nerdtree_statusline = 1
+let g:airline#extensions#omnisharp#enabled = 1
+
+
 " enable powerline fonts
 let g:airline_powerline_fonts = 1
 " Switch to your current theme
-let g:airline_theme = 'molokai'
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" unicode symbols
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ' '
+let g:airline_symbols.dirty='⚡'
 
 "==============================================================
 "========================NERDTree==============================
@@ -122,12 +155,6 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatuline = ''
 au VimEnter *  NERDTree
-
-"==============================================================
-"=======================INSERT COLOR CHANGE====================
-highlight Normal ctermbg=232
-au InsertEnter * highlight Normal ctermbg=52
-au InsertLeave * highlight Normal ctermbg=232
 
 "==============================================================
 "=========================COC================================
@@ -349,7 +376,6 @@ let g:gitgutter_sign_removed = '✖'
 let g:gitgutter_sign_removed_first_line = '^^'
 let g:gitgutter_sign_removed_above_and_below = '{'
 let g:gitgutter_sign_modified_removed = ''
-
 highlight GitGutterAddLine    ctermbg=22
 highlight GitGutterChangeLine ctermbg=17
 highlight GitGutterDeleteLine ctermbg=52
@@ -361,4 +387,21 @@ let g:HardMode_level = 'wannabe'
 let g:HardMode_hardmodeMsg = 'Don''t use this!'
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
-"===============================================================
+"==============================================================
+"=======================INSERT COLOR CHANGE====================
+"
+highlight Normal ctermbg=232
+
+augroup InsertColorChange
+    autocmd!
+    autocmd InsertEnter * highlight Normal ctermbg=52
+    autocmd InsertLeave * highlight Normal ctermbg=232
+augroup END
+
+"==============================================================
+"===================HIGHLIGHT ACTIVE WINDOW====================
+augroup ActiveWindow
+    autocmd!
+    autocmd WinEnter * set cursorline 
+    autocmd WinLeave * set nocursorline
+augroup END
