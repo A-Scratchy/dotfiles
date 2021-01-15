@@ -27,6 +27,7 @@ Plug 'shime/vim-livedown'
 Plug 'airblade/vim-gitgutter'
 Plug 'wikitopian/hardmode'
 Plug 'qpkorr/vim-bufkill'
+Plug 'tpope/vim-markdown'
 
 call plug#end()
 " ===========================================================
@@ -398,6 +399,11 @@ augroup InsertColorChange
     autocmd InsertLeave * highlight Normal ctermbg=232
 augroup END
 
+augroup AutoPretty
+    autocmd!
+    autocmd InsertLeave * :Format
+augroup END
+
 "==============================================================
 "===================HIGHLIGHT ACTIVE WINDOW====================
 augroup ActiveWindow
@@ -405,3 +411,6 @@ augroup ActiveWindow
     autocmd WinEnter * set cursorline 
     autocmd WinLeave * set nocursorline
 augroup END
+"==============================================================
+"======================MARKDOWN================================
+let g:markdown_syntax_conceal = 0
