@@ -1,0 +1,114 @@
+" =================== NVIM CONFIG - SCRATCHYDEV =================
+ 
+ """ Map leader to space ---------------------
+ let mapleader=" "
+ 
+ """ Plugins  --------------------------------
+ Plug 'preservim/nerdtree'
+ Plug 'tpope/vim-surround'
+ Plug 'terryma/vim-multiple-cursors'
+ Plug 'tpope/vim-commentary'
+ Plug 'vim-scripts/ReplaceWithRegister'
+ Plug 'vim-scripts/argtextobj.vim'
+ Plug 'preservim/nerdtree'
+ Plug 'machakann/vim-highlightedyank'
+ Plug 'michaeljsmith/vim-indent-object'
+ 
+ """ Plugin settings -------------------------
+ let g:argtextobj_pairs="[:],(:),<:>"
+ 
+ """ Common settings -------------------------
+ set showmode
+ set so=5
+ set incsearch
+ set nu
+ set number
+ set relativenumber
+ set clipboard=unnamedplus
+ 
+ """ Idea specific settings ------------------
+ set ideajoin
+ set ideastatusicon=pink
+ set idearefactormode=keep
+ 
+ """ Mappings --------------------------------
+ nnoremap \e :e C:/Users/ascratcherd/.ideavimrc<CR>
+ nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+ 
+ map <leader>d <Action>(Debug)
+ map <leader>r <Action>(RenameElement)
+ map <leader>c <Action>(Stop)
+ map <leader>zz <Action>(ToggleDistractionFreeMode)
+ 
+ map <leader>o <Action>(FileStructurePopup)
+ 
+ nnoremap gt :action NextTab<CR>
+ nnoremap gT :action PreviousTab<CR>
+ nnoremap <TAB> :action NextTab<CR>
+ nnoremap <s-TAB> :action PreviousTab<CR>
+ 
+ nnoremap <Leader>q :action CloseContent<CR>
+ nnoremap <Leader>n :action NextWindow<CR>
+ 
+ " exit insert mode with jk or kj
+ inoremap jk <Esc>
+ 
+ " Better window navigation
+ nnoremap <leader>wh <C-w>h
+ nnoremap <leader>wk <C-w>k
+ nnoremap <leader>wj <C-w>j
+ nnoremap <leader>wl <C-w>l
+ nnoremap <leader>ww <C-w>w
+ 
+ nnoremap <leader>sv :action SplitVertically<CR>
+ nnoremap <leader>sh :action SplitHorizontally<CR>
+ nnoremap <leader>sd :action Unsplit<CR>
+ 
+ nnoremap <leader>gc :action CommentByLineComment<CR>
+ nnoremap [[ :action MethodUp<CR>
+ nnoremap ]] :action MethodDown<CR>
+ 
+ nnoremap zc :action CollapseRegion<CR>
+ nnoremap zo :action ExpandRegion<CR>
+ nnoremap <leader>zc :action CollapseAllRegions<CR>
+ nnoremap <leader>zo :action ExpandAllRegions<CR>
+ 
+ nnoremap <Leader>ff  :action ReformatCode<CR>
+ nnoremap <Leader>fr :action RecentFiles<CR>
+ 
+ nnoremap <leader>l :action RecentLocations<CR>
+ nnoremap <leader>lh  :action LocalHistory.ShowHistory<CR>
+ nnoremap ge :action GotoNextError<CR>
+ nnoremap gE :action GotoPreviousError<CR>
+ 
+ " move lines up and down like in vs code
+ noremap <S-Up> ddkP
+ noremap <S-Down> ddp
+ 
+ noremap <leader>nt :NERDTreeFocus<CR>
+ 
+ " working with files
+ nnoremap <leader>fw :w<CR>
+ nnoremap <leader>fq :q<CR>
+ nnoremap <leader>fwq :wq<CR>
+ 
+ " useful stuff
+ nnoremap <leader>h :noh<CR>
+ nnoremap <leader>rg :register<CR>
+ nnoremap oo o<Esc>
+ nnoremap OO O<Esc>
+ 
+ " working with buffers
+ nnoremap <leader>bn :bnext<CR>
+ nnoremap <leader>bp :bprevious<CR>
+ 
+ " stuff from https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b"
+ 
+ nnoremap <leader>t :action ActivateTerminalToolWindow<CR>
+  
+ set incsearch
+ nnoremap <leader>s :action GotoRelated<CR>
+ nnoremap <leader>fs :action FileStructurePopup<CR>
+ nnoremap <leader>gb :action Back<CR>
+ nnoremap <leader>gf :action Forward<CR>
+ "=============================================================
